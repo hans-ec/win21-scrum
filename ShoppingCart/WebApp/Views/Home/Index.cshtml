@@ -1,0 +1,32 @@
+﻿@using Newtonsoft.Json
+@model HomeViewModel
+@{ ViewData["Title"] = "Clothes for all genders"; }
+
+@*
+    https://docs.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-6.0
+    https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interoperability/call-javascript-from-dotnet?view=aspnetcore-6.0
+*@
+
+<script>
+    let localStorage = window['localStorage'];  
+    localStorage.setItem('ShoppingCart', '@Html.Raw(JsonConvert.SerializeObject(Model.ShoppingCart) as String)');
+</script>
+
+<div class="container">
+    <div class="row align-items-center my-5">
+        <div class="col-3">
+            <img src="images/logo.svg" alt="">
+        </div>
+        <div class="col-5">
+            <partial name="_SearchboxPartial" />
+        </div>
+        <div class="col-4 d-flex align-items-center justify-content-between">
+            <partial name="_ShoppingCartPartial" model="Model.ShoppingCart" />
+        </div>
+    </div>
+</div>
+
+<partial name="_BannerPartial" />
+
+<partial name="_NewArrivalsPartial" model="Model.NewArrivals" />
+@*<p class="mb-4">@Html.Raw(JsonConvert.SerializeObject(Model.ShoppingCart) as String)</p>*@
